@@ -1,0 +1,2 @@
+company_id,name_zh,name_en,industry_code,market,exchange,ticker,report_currency,trading_currency,beta,hq_country,fiscal_year_end_month,description
+example_co,示例公司,Example Co,consumer,CN,SSE,600000.SH,CNY,CNY,1.0,CN,12,一句话说明商业模式

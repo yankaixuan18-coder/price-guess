@@ -115,12 +115,23 @@ curl -X POST localhost:8000/valuations/run -H 'Content-Type: application/json' -
 }'
 ```
 
-导入自己的财务数据（CSV）：
+## 添加新公司 / 新数据
+
+详见 **[docs/数据接入指南.md](docs/数据接入指南.md)**。三种方式：
 
 ```bash
-cd backend && python -m app.seed.csv_import path/to/financials.csv
-# 列模板：app/seed/templates/financials_template.csv（金额单位：报告币种百万）
+cd backend
+# ① 美股一键抓取（SEC EDGAR 官方结构化数据 + stooq 行情，全自动）
+python -m app.seed.fetch_us NVDA --company-id nvda --industry manufacturing --contact 你的邮箱
+
+# ② CSV 数据包（任何市场：主数据+财务+股本+行情+分红，模板在 app/seed/templates/）
+python -m app.seed.csv_import --dir path/to/package_dir
+
+# ③ 仅追加财务报表（公司已存在时）
+python -m app.seed.csv_import path/to/financials.csv
 ```
+
+A股/港股可用 AKShare / 巨潮 / HKEXnews 等免费源取数后按模板整理（指南内有映射示例）。
 
 ## 路线图（对应方案第十八章）
 

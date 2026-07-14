@@ -1,0 +1,38 @@
+# 一键启动：docker compose up --build
+# PostgreSQL + FastAPI 后端 + Next.js 前端（方案第十四章推荐技术架构）
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: valuation
+      POSTGRES_PASSWORD: valuation
+      POSTGRES_DB: valuation
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U valuation"]
+      interval: 5s
+      retries: 10
+
+  backend:
+    build: ./backend
+    environment:
+      # 空库启动时自动导入样例数据
+      DATABASE_URL: postgresql+psycopg://valuation:valuation@db:5432/valuation
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  frontend:
+    build: ./frontend
+    environment:
+      BACKEND_URL: http://backend:8000
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+
+volumes:
+  pgdata:

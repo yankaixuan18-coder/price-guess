@@ -14,7 +14,14 @@
 
 ## 快速开始
 
-### 方式一：本地运行（SQLite，零配置）
+### 方式一：Windows 一键启动（推荐）
+
+装好 [Python 3.11+](https://www.python.org/downloads/)（安装时勾选 *Add python.exe to PATH*）和
+[Node.js LTS](https://nodejs.org/) 后，**双击仓库根目录的 `start.bat`** 即可：
+脚本会自动安装依赖（首次约几分钟）、同时启动前后端、并打开浏览器。
+退出时关闭弹出的"后端""前端"两个窗口即可；之后每次双击几秒就能启动。
+
+### 方式二：本地手动运行（SQLite，零配置）
 
 ```bash
 # 后端（Python 3.11+）
@@ -28,7 +35,7 @@ npm install
 npm run dev                              # http://localhost:3000
 ```
 
-### 方式二：Docker Compose（PostgreSQL）
+### 方式三：Docker Compose（PostgreSQL）
 
 ```bash
 docker compose up --build               # 前端 :3000 / 后端 API :8000 / PostgreSQL
